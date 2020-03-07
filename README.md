@@ -13,7 +13,7 @@ In windows, run the run,bat file.
 Change the following parameters for your need:
 * TRAIN_DATA_DIR: Directory of the data.
 * LOGS_DIR: Parent Directory where the training logs dir will be create.
-* LAYER_WIDTH: Comma seperated width for a fully-connected netwrok, For example, "128,10,20,1" is a netwrok that gets input of dim 128, has inner layer of dim 10*20, another inner layer of dim 20*1, and output dim of 1.
+* LAYER_WIDTH: Comma seperated width for a fully-connected netwrok. For example, "128,10,20,1" is a netwrok that gets input of dim 128, has inner layer of dim 10*20, another inner layer of dim 20*1, and output dim of 1.
 * P: Order of loss function (l_p loss).
 * NUM_EPOCHS: Number of epochs for training.
 * LR: Gradient Descent learning rate.
