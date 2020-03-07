@@ -23,3 +23,8 @@ For every training, in its logs dir, you have the following files:
 * net: Pytorch saved parameters for a trained network. Load it with Load method of Pytorch.
 * net.csv: csv file with every epoch information.
 * net.json:  json file with a python dictionary with every epoch information.
+
+## Code:
+* LinearNDepthNet.py: The architecture of the network.
+* model.py: Training the network.
+* UCIDataSet.py: Class for loading UCI data.
