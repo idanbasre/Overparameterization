@@ -7,8 +7,8 @@ The network is trained with Gradient Descent with a desired learning rate.
 The data that is being used is [Gas Sensor Array Drift Dataset at Different Concentrations Data Set](http://archive.ics.uci.edu/ml/datasets/Gas%2BSensor%2BArray%2BDrift%2BDataset%2Bat%2BDifferent%2BConcentrations).
 
 ## Training:
-In Unix, run the run.sh file.
-In windows, run the run.bat file.
+* For Unix, run the run.sh file.
+* For Windows, run the run.bat file.
 
 Change the following parameters for your need:
 * TRAIN_DATA_DIR: Directory of the data.
