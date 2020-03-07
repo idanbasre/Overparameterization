@@ -10,28 +10,18 @@ import os
 import datetime
 
 
-IN_DIM = 128
-OUT_DIM = 1
-LAYERS_WIDTH = [IN_DIM, 10, 10, OUT_DIM]
-N_LAYERS = len(LAYERS_WIDTH) - 1
-P = 2 # Order of loss function (l_p loss)
-NUMBER_OF_EPOCHS = 10
-LEARNING_RATE = 0.001
 ETHANOL_LABEL = "1"
-
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def train_net(net, train_loader, tensor_board_path=None):
-    criterion = torch.nn.MSELoss()
+def train_net(net, train_loader, num_epochs, P, lr):
     # Defining optimizer:
-    optimizer = optim.SGD(net.parameters(), lr=LEARNING_RATE)  
+    optimizer = optim.SGD(net.parameters(), lr=lr)  
 
     # Start Training
     results = []
-    # writer = SummaryWriter(tensor_board_path)
 
-    for epoch in range(NUMBER_OF_EPOCHS):
+    for epoch in range(num_epochs):
       epoch_start_time = datetime.datetime.now()
       net = net.train()
       train_loss = 0
@@ -65,29 +55,22 @@ def train_net(net, train_loader, tensor_board_path=None):
       if epoch % 1000 == 0:
         print("Finished epoch number: {}, loss is: {}".format(epoch, train_loss))
 
-      # Record to TensorBoard
-      # writer.add_scalar('Train Loss', train_loss, epoch)
-
-      # for name, param in net.named_parameters():
-        # writer.add_histogram(name, param, epoch)
-
-    # writer.close()
     return results
 
 
-def train_and_evaluate(train_data_dir, log_dir):
+def train_and_evaluate(train_data_dir, log_dir, layer_width, P, num_epochs, lr):
     # Preparing Logs dir:
-    description = Utils.create_architecture_description(LAYERS_WIDTH, P, NUMBER_OF_EPOCHS, LEARNING_RATE)
+    description = Utils.create_architecture_description(layer_width, P, num_epochs, lr)
     logs_dir = os.path.join(log_dir, description + str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")))
     os.mkdir(logs_dir)
 
     # Loading Data and Train:
     train_loader = UCIDataSet.get_UCI_data_loader(train_data_dir, ETHANOL_LABEL)
 
-    net = LinearNDepthNet.linear_n_dpeth(LAYERS_WIDTH)
+    net = LinearNDepthNet.linear_n_dpeth(layer_width)
     net.to(DEVICE)
 
-    results = train_net(net, train_loader, tensor_board_path=logs_dir)
+    results = train_net(net, train_loader, num_epochs, P, lr)
 
     # Saving the training model:
     path = os.path.join(logs_dir, "net")
