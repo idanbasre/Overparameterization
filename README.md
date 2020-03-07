@@ -8,7 +8,8 @@ The data that is being used is [Gas Sensor Array Drift Dataset at Different Conc
 
 ## Training:
 In Unix, run the run.sh file.
-In windows, run the run,bat file.
+
+In windows, run the run.bat file.
 
 Change the following parameters for your need:
 * TRAIN_DATA_DIR: Directory of the data.
