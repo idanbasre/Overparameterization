@@ -1,6 +1,6 @@
 # Overparameterization For Acceleration
 Pytorch implementartion and further experiments of the article
-[On the Optimization of Deep Networks: Implicit Acceleration by Overparameterization \ Sanjeev Arora, Nadav Cohen, Elad Hazan] (https://arxiv.org/abs/1802.06509)
+[On the Optimization of Deep Networks: Implicit Acceleration by Overparameterization \ Sanjeev Arora, Nadav Cohen, Elad Hazan](https://arxiv.org/abs/1802.06509)
 
 This repo contains a network with N fully-connected layers (N can be changed).
 The network is trained with Gradient Descent with a desired learning rate.
