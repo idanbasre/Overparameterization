@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def create_architecture_description(layers_width, P, number_of_epochs, lr):
-    # create a string that holds net architectur
+    # create a string that holds net architecture
     if len(layers_width) - 1 == 1:
         net_arch_str = ''
     else:
