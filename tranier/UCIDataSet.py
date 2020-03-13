@@ -17,7 +17,7 @@ class UCIDataSet(torch.utils.data.Dataset):
     return vector, label
 
 
-def get_data_from_file(file_path, desired_label):
+def get_data_from_file(file_path, desired_gas):
   with open(file_path) as fd:
     samples = fd.read()
     samples = samples.split("\n")
@@ -25,14 +25,15 @@ def get_data_from_file(file_path, desired_label):
   data = []
   labels = []
   for sample in samples[:-1]:
-    label, vector = sample.split(";")
-    if label is not desired_label:
+    gas, vector = sample.split(";")
+    if gas is not desired_gas:
       continue
 
-    label = float(label)
+    vector = vector.split(" ")
+    label = float(vector[0])
     labels.append(label)
 
-    vector = vector.split(" ")[1:-1]
+    vector = vector[1:-1]
     vector = [float(elt.split(":")[1]) for elt in vector]
     data.append(vector)
   
@@ -51,7 +52,10 @@ def get_UCI_data_loader(data_dir_path, label):
 	  labels.extend(labels_from_file)
 
 	# Normalizing labels:
-	norm_labels = [l - 1.0 for l in labels]
+	norm_labels = np.asarray(labels)
+	norm_labels -= np.mean(norm_labels, axis=0, keepdims=True)
+	norm_labels /= np.std(norm_labels, axis=0, keepdims=True) + 1e-6
+	norm_labels = norm_labels.tolist()
 
 	# Normalizing data:
 	norm_data = np.asarray(data)
