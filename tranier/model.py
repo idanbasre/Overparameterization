@@ -63,6 +63,7 @@ def train_and_evaluate(train_data_dir, log_dir, layer_width, P, num_epochs, lr):
     description = Utils.create_architecture_description(layer_width, P, num_epochs, lr)
     logs_dir = os.path.join(log_dir, description + str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")))
     os.mkdir(logs_dir)
+    print('Logs saved at: {}'.format(logs_dir))
 
     # Loading Data and Train:
     train_loader = UCIDataSet.get_UCI_data_loader(train_data_dir, ETHANOL_LABEL)
@@ -73,6 +74,6 @@ def train_and_evaluate(train_data_dir, log_dir, layer_width, P, num_epochs, lr):
     results = train_net(net, train_loader, num_epochs, P, lr)
 
     # Saving the training model:
-    path = os.path.join(logs_dir, "net")
+    path = os.path.join(logs_dir, description)
     torch.save(net.state_dict(), path)
     Utils.save_results(results, path)
